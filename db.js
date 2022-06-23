@@ -1,9 +1,9 @@
-const mongoose = require("mongoose")
 
-const connectDB = (mongoURI) =>{
-    return mongoose.connect(mongoURI,{
+const Sequlize = require("sequelize")
 
-    })
-}
+const sequelize = new Sequlize("blessing","root","",{
+    dialect:"mysql",
+    host:"localhost"
+})
 
-module.exports = connectDB;
+module.exports = sequelize
