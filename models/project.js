@@ -14,8 +14,12 @@ const Project = sequelize.define("projects",{
         type:DataTypes.STRING,
         allowNull:false
     },
-    target:{
+    imageurl:{
         type:DataTypes.STRING,
+        allowNull:false
+    },
+    target:{
+        type:DataTypes.INTEGER,
         allowNull:false
     },
     description:{
