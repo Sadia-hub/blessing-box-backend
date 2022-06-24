@@ -2,11 +2,7 @@ const {Sequlize, DataTypes} = require("sequelize")
 
 const sequelize = require("../db")
 
-const Donor = sequelize.define("donors",{
-    userName:{
-        type:DataTypes.STRING,
-        allowNull:false,
-    },
+const Users = sequelize.define("users",{
     email:{
         type:DataTypes.STRING,
         allowNull:false,
@@ -41,4 +37,4 @@ const Donor = sequelize.define("donors",{
     timestamps: false
 });
 
-module.exports = Donor
+module.exports = Users

@@ -7,7 +7,7 @@ const sequelize = require("./db")
 
 //models
 
-const donor = require("./models/donor")
+const user = require("./models/users")
 const ngo= require("./models/ngo")
 const project = require("./models/project")
 const proof = require("./models/proof")
@@ -18,7 +18,15 @@ const ngoServiceArea = require("./models/ngoServiceArea")
 
 //relations of our model
 
+//user
+user.hasOne(role)
+role.belongsTo(user)
+
+user.hasOne(ngo)
+ngo.belongsTo(user)
+
 //ngo
+
 ngo.belongsToMany(service, {through: ngoService})
 service.belongsToMany(ngo, {through: ngoService})
 

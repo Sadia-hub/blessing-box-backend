@@ -4,16 +4,10 @@ const sequelize = require("../db")
 
 
 const NGO = sequelize.define("ngos",{
-    id:{
-        type:DataTypes.INTEGER, 
-        autoIncremement:true,
-        primaryKey:true,
-        allowNull:false
-    },
-    username:{
+    email:{
+        type:DataTypes.STRING,
         allowNull:false,
-        type: DataTypes.STRING,
-        unique: true
+        primaryKey: true
     },
     name:{
         type:DataTypes.STRING,
@@ -32,10 +26,7 @@ const NGO = sequelize.define("ngos",{
         type:DataTypes.INTEGER,
         allowNull:false
     },
-    email:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
+   
     contact:{
         type:DataTypes.STRING,
         allowNull:false
