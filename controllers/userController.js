@@ -11,7 +11,7 @@ const deleteUser = (req, res, next) =>{
 }
 
 const getUser = (req, res, next) =>{
-    res.json({msg:"get user"})
+    res.json({msg:"Get user"})
 }
 
 module.exports = {

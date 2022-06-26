@@ -6,7 +6,7 @@ router.route("/users")
 .post(userController.addUser)
 
 router.route("/user/:id")
-.post(userController.getUser)
+.post(userController.getUser) //get user by id
 .put(userController.updateUser)
 .delete(userController.deleteUser)
 
