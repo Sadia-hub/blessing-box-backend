@@ -1,9 +1,14 @@
 const express =  require("express")
 require("dotenv").config()
+
+//routers
 const ServiceRouter = require("./routes/service")
 const ServiceAreaRouter = require("./routes/serviceArea")
-const sequelize = require("./db")
+const UserRouter = require("./routes/user")
+
 //const connectDB = require("./db")
+const sequelize = require("./db")
+
 
 //models
 
@@ -15,6 +20,7 @@ const service = require("./models/services")
 const ngoService = require("./models/ngoService")
 const serviceArea = require("./models/serviceAreas")
 const ngoServiceArea = require("./models/ngoServiceArea")
+const role = require("./models/role")
 
 //relations of our model
 
@@ -41,8 +47,8 @@ project.hasOne(proof)
 proof.belongsTo(project)
 
 //donation
-project.belongsToMany(donor, {through: "donations"})
-donor.belongsToMany(project, {through: "donations"})
+project.belongsToMany(user, {through: "donations"})
+user.belongsToMany(project, {through: "donations"})
 
 
 const app = express();
@@ -53,6 +59,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(ServiceRouter)
 app.use(ServiceAreaRouter);
+app.use(UserRouter)
+
 app.all("*",(req, res)=>{
     res.status(404).json({
         message:"Page Not Found"
