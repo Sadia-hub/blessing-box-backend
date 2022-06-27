@@ -13,7 +13,7 @@ const NGO = sequelize.define("ngos",{
     email:{
         type:DataTypes.STRING,
         allowNull:false,
-        primaryKey: true
+        
     },
     name:{
         type:DataTypes.STRING,
@@ -25,8 +25,7 @@ const NGO = sequelize.define("ngos",{
     },
     status:{
         type:DataTypes.STRING,
-        allowNull:false,
-        default:"pending"
+        defaultValue:"pending"
     },
     year:{
         type:DataTypes.INTEGER,
