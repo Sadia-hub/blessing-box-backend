@@ -6,11 +6,11 @@ const serviceArea = require("./serviceAreas")
 const sequelize = require("../db")
 
 const NgoServiceArea = sequelize.define('NgoServiceArea', {
-    ngoEmail: {
+    ngoId: {
       type: DataTypes.INTEGER,
       references: {
         model: ngo, // 'Movies' would also work
-        key: 'email'
+        key: 'id'
       }
     },
     serviceAreaId: {

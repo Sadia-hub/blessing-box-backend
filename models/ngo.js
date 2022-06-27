@@ -4,6 +4,12 @@ const sequelize = require("../db")
 
 
 const NGO = sequelize.define("ngos",{
+    id:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        primaryKey: true,
+        autoIncrement:true
+    },
     email:{
         type:DataTypes.STRING,
         allowNull:false,

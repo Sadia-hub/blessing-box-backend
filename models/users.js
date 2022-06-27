@@ -3,15 +3,22 @@ const {Sequlize, DataTypes} = require("sequelize")
 const sequelize = require("../db")
 
 const Users = sequelize.define("users",{
+    id:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        primaryKey:true,
+        autoIncrement:true
+    },
     email:{
         type:DataTypes.STRING,
         allowNull:false,
-        primaryKey:true,
+        unique: true
+        
     },
     isVerified:{
         type:DataTypes.BOOLEAN,
-        allowNull:false,
-        default:false
+        allowNull:true,
+        defaultValue:false
     },
     password:{
         type:DataTypes.STRING,
@@ -28,6 +35,11 @@ const Users = sequelize.define("users",{
     designation:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    type:{
+        type:DataTypes.STRING,
+        allowNull:true,
+        defaultValue:"donor"
     },
     address:{
         type:DataTypes.STRING,

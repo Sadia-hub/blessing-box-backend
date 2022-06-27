@@ -5,7 +5,10 @@ const router = express.Router()
 router.route("/users")
 .post(userController.addUser)
 
-router.route("/user/:id")
+router.route("/verify/:id")
+.get(userController.verifyUser);
+
+router.route("/user")
 .post(userController.getUser) //get user by id
 .put(userController.updateUser)
 .delete(userController.deleteUser)

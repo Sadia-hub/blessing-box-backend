@@ -5,14 +5,14 @@ const service = require("./services")
 
 const sequelize = require("../db")
 
-const NgoService = sequelize.define('NgoService', {
-    ngoEmail: {
-      type: DataTypes.STRING,
-      references: {
-        model: ngo,
-        key: 'email'
-      }
-    },
+const NgoService = sequelize.define('ngoService', {
+  ngoId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: ngo, // 'Movies' would also work
+      key: 'id'
+    }
+  },
     serviceId: {
       type: DataTypes.INTEGER,
       references: {

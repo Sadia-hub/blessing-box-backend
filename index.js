@@ -20,13 +20,12 @@ const service = require("./models/services")
 const ngoService = require("./models/ngoService")
 const serviceArea = require("./models/serviceAreas")
 const ngoServiceArea = require("./models/ngoServiceArea")
-const role = require("./models/role")
+
 
 //relations of our model
-
+    
 //user
-user.hasOne(role)
-role.belongsTo(user)
+
 
 user.hasOne(ngo)
 ngo.belongsTo(user)
