@@ -3,11 +3,8 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 const sendMail = require("../mail");
 
-const addUser =  (req, res, next) =>{
-
-    
+const addUser =  (req, res, next) =>{ 
         const {body} = req;
-
         const {password} = body
 
         bcrypt.hash(password, 5, async function(err, hash) {
@@ -22,9 +19,7 @@ const addUser =  (req, res, next) =>{
                     if(user){
                      
                             const info = await sendMail(email, user.id)
-                            console.log(info)
-                           
-                      
+                            console.log(info)  
                             res.status(200).json({user, msg:"Thank you for registration! Kindly check your email for confirmation of your account"})
          
                     }
@@ -37,26 +32,61 @@ const addUser =  (req, res, next) =>{
             }
             else{
                 res.status(500).json({msg:err})  
-            }
-                     
+            }      
             });
-
-        
-    
 }
 
-const updateUser = (req, res, next) =>{
-    res.json({msg:"Update User"})
+const updateUser = async(req, res, next) =>{
+    const {id} = req.params;
+    console.log(id);    
+    const {password, name, contact, designation,  address} = req.body
+    const user = await users.findByPk(id);
+    console.log("Id of user is "+user);
+  bcrypt.hash(password, 5, async function(err, hash) {
+        try{
+            if(user) {
+        const user = await users.update( { name, contact, designation, password : hash, address}  , {
+            where: {
+                id
+              }
+            });
+            res.status(200).json({msg: "update user"})   
+        }
+        if(!user) {
+            res.status(400).json({msg: "user Id is not registered"})
+        }
+        } 
+    catch(err){
+        res.status(500).json({msg: err})
+    }
+})
 }
 
-const deleteUser = (req, res, next) =>{
-    res.json({msg:"delete user"})
+const deleteUser = async (req, res, next) =>{
+    const {id} = req.params;
+    console.log("Id is" + id);
+    const user = await users.findByPk(id);
+    try{
+        if(user) {
+        const user =  await users.destroy({
+            where: {
+                id
+              }
+        });
+        console.log("In users"+user);
+        res.status(200).json("user deleted");
+    }
+        if(!user) {
+        res.status(400).json({msg: 'user Id is not registered'})  
+        }
+    }
+    catch(err){
+        res.status(500).json({msg: err})
+    } 
 }
 
 const verifyUser = async(req, res, next) =>{
-
     const {id} = req.params
-
     try{
         const user = await users.update({ isVerified: true }, {
             where: {
@@ -71,16 +101,12 @@ const verifyUser = async(req, res, next) =>{
     }
     catch(err){
         res.status(500).json(err)
-    }
-    
+    }   
 }
 
 const getUser = async (req, res, next) =>{
-
     try{
-
         const {email, password} = req.body
-
         const user = await users.findOne({
             where: {
                 email
@@ -88,8 +114,7 @@ const getUser = async (req, res, next) =>{
         });
 
         if(user && user.isVerified){
-            console.log(user)
-            
+            console.log(user)      
             bcrypt.compare(password,user.password, (err, validated)=>{
                 if(validated){
 
