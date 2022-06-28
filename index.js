@@ -50,10 +50,7 @@ proof.belongsTo(project)
 project.belongsToMany(user, {through: "donations"})
 user.belongsToMany(project, {through: "donations"})
 
-
 const app = express();
-
-
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -69,10 +66,7 @@ app.all("*",(req, res)=>{
 });
 
 
-
-
-
-sequelize.sync({alter:true}).then(()=>{
+sequelize.sync().then(()=>{
     service.bulkCreate([{service:"education"}, {service:"food"}, {service:"orphanage"}])
 }).then(()=>{
     serviceArea.bulkCreate([{area:"Karachi"}, {area:"Sukkur"}, {area:"Ghotki"}])
