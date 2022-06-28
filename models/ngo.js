@@ -10,9 +10,10 @@ const NGO = sequelize.define("ngos",{
         primaryKey: true,
         autoIncrement:true
     },
-    email:{
+    ngoEmail:{
         type:DataTypes.STRING,
         allowNull:false,
+        unique:true
         
     },
     name:{

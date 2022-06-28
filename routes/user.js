@@ -10,7 +10,6 @@ router.route("/verify/:id")
 
 router.route("/user")
 .post(userController.getUser) //get user by id
-.put(userController.updateUser)
-.delete(userController.deleteUser)
+
 
 module.exports = router;

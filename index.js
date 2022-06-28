@@ -5,6 +5,7 @@ require("dotenv").config()
 const ServiceRouter = require("./routes/service")
 const ServiceAreaRouter = require("./routes/serviceArea")
 const UserRouter = require("./routes/user")
+const ngoRouter = require("./routes/ngo")
 
 //const connectDB = require("./db")
 const sequelize = require("./db")
@@ -59,6 +60,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(ServiceRouter)
 app.use(ServiceAreaRouter);
 app.use(UserRouter)
+app.use(ngoRouter)
 
 app.all("*",(req, res)=>{
     res.status(404).json({
@@ -70,7 +72,7 @@ app.all("*",(req, res)=>{
 
 
 
-sequelize.sync({force:true}).then(()=>{
+sequelize.sync({alter:true}).then(()=>{
     service.bulkCreate([{service:"education"}, {service:"food"}, {service:"orphanage"}])
 }).then(()=>{
     serviceArea.bulkCreate([{area:"Karachi"}, {area:"Sukkur"}, {area:"Ghotki"}])
