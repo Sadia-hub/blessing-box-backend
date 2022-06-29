@@ -3,6 +3,16 @@ const ngos = require("../models/ngo")
 const addNgo = async (req, res) =>{
     try{
 
+        const {userId} = req.body
+
+        const checkNgo = ngos.findAll({
+            where:userId
+        })
+
+        if(checkNgo){
+            return res.status(401).json({msg:"Sorry, you already have one NGO"})
+        }
+
         const ngo = await ngos.create(req.body)
         res.status(200).json(ngo)
        
