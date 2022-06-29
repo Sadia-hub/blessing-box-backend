@@ -69,7 +69,10 @@ const approveNGO = async (req, res, next) =>{
                 
                 return res.status(200).json({msg:"Sorry, requested NGO cannot be approved", ngo})
             }
-            return res.status(200).json({msg:"Congratulation, your NGO has been approved", ngo})
+            if(status == 0){
+                return res.status(200).json({msg:"Congratulation, your NGO has been approved", ngo})
+            }
+            return res.status(400).json({msg:"Please provide correct flag for ngo status", ngo})
         }
 
         res.status(400).json({msg:"NGO not found"})
@@ -84,13 +87,18 @@ const approveNGO = async (req, res, next) =>{
 const getNgos = async (req, res) =>{
     try{
         
+        const {status} = req.query
+        console.log("all")
+        if(!status){
+            status = "approved"
+        }
         const allNgos = await ngos.findAll({
             where:{
-                "status":"approved"
+                status:status
             }
         })
 
-        if(ngos){
+        if(allNgos){
             return res.status(200).json(allNgos);
         }
         else 
