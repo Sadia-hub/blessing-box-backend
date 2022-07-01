@@ -2,9 +2,16 @@ const sequelize = require("../db")
 
 
 const getServices = async (req, res) =>{
-   const services = await sequelize.models.services.findAll()
-   console.log("services",services)
-    res.json(services)
+
+    try{
+        const services = await sequelize.models.services.findAll()
+        console.log("services",services)
+         res.json(services)
+    }
+    catch(err){
+        res.status(500).json({msg:err.message})
+    }
+   
    
 }
 

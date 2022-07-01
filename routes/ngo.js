@@ -11,8 +11,8 @@ router.route("/ngo")
 
 router.route("/ngo/:id")
 .get(ngoController.getNgo)
-.put(ngoController.updateNgo)
-.delete(ngoController.deleteNgo)
+.put(middleware.hasToken, ngoController.updateNgo)
+.delete(middleware.hasToken, ngoController.deleteNgo)
 
 router.route("/ngo/:id/status/:status")
 .get(ngoController.approveNGO)
