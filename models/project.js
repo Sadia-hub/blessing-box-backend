@@ -5,10 +5,10 @@ const sequelize = require("../db")
 const Project = sequelize.define("projects",{
 
     id:{
-        type:DataTypes.INTEGER, 
-        autoIncremement:true,
-        primaryKey:true,
-        allowNull:false
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        primaryKey: true,
+        autoIncrement:true
     },
     title:{
         type:DataTypes.STRING,
@@ -25,7 +25,11 @@ const Project = sequelize.define("projects",{
     description:{
         type:DataTypes.TEXT,
         allowNull:false
-    }
+    },
+    status:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:0
+    },
 
 },{
     freezeTableName: true,

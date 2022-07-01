@@ -6,6 +6,7 @@ const ServiceRouter = require("./routes/service")
 const ServiceAreaRouter = require("./routes/serviceArea")
 const UserRouter = require("./routes/user")
 const ngoRouter = require("./routes/ngo")
+const projectRouter = require("./routes/project") 
 
 //const connectDB = require("./db")
 const sequelize = require("./db")
@@ -58,6 +59,7 @@ app.use(ServiceRouter)
 app.use(ServiceAreaRouter);
 app.use(UserRouter)
 app.use(ngoRouter)
+app.use(projectRouter)
 
 app.all("*",(req, res)=>{
     res.status(404).json({

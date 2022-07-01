@@ -6,10 +6,12 @@ const addNgo = async (req, res) =>{
         const {userId} = req.body
 
         const checkNgo = ngos.findAll({
-            where:userId
+            where:{
+                userId
+            }
         })
 
-        if(checkNgo){
+        if(!checkNgo){
             return res.status(401).json({msg:"Sorry, you already have one NGO"})
         }
 
@@ -69,7 +71,7 @@ const approveNGO = async (req, res, next) =>{
                 
                 return res.status(200).json({msg:"Sorry, requested NGO cannot be approved", ngo})
             }
-            if(status == 0){
+            if(status == 1){
                 return res.status(200).json({msg:"Congratulation, your NGO has been approved", ngo})
             }
             return res.status(400).json({msg:"Please provide correct flag for ngo status", ngo})
