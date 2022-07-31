@@ -6,13 +6,17 @@ const ngoController = require("../controllers/ngoController")
 const router = express.Router()
 
 router.route("/ngo")
-.get(ngoController.getNgos) //approved ngos
-.post(middleware.hasToken, ngoController.addNgo)
+ .get(ngoController.getNgos) //approved ngos
+.post( ngoController.addNgo)
+
+// router.route("/ngo/:status").get(ngoController.getNgos) //approved ngos
 
 router.route("/ngo/:id")
 .get(ngoController.getNgo)
 .put(middleware.hasToken, ngoController.updateNgo)
 .delete(middleware.hasToken, ngoController.deleteNgo)
+
+router.route("/ngoservice/:service").get(ngoController.getNGOByService)
 
 router.route("/ngo/:id/status/:status")
 .get(ngoController.approveNGO)

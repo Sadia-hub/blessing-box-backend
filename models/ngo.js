@@ -53,6 +53,14 @@ const NGO = sequelize.define("ngos",{
         type:DataTypes.STRING,
         allowNull:false
     },
+    serviceType:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    serviceArea:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
     certificate:{
         type:DataTypes.STRING,
         allowNull:true

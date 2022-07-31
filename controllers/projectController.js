@@ -22,8 +22,6 @@ const getProjectsByNgoId = async (req, res) =>{
         });
 
          res.status(200).json(ngoProjects)
-        
-
     }
     catch(err){
         res.status(500).json({msg:err.message})

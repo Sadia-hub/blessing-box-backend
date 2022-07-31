@@ -21,7 +21,7 @@ const addUser =  (req, res, next) =>{
                             const info = await sendMail(email, user.id)
                             console.log(info)  
                             res.status(200).json({user, msg:"Thank you for registration! Kindly check your email for confirmation of your account"})
-         
+                           
                     }
                      
                 }
@@ -117,19 +117,20 @@ const getUser = async (req, res, next) =>{
             console.log(user)      
             bcrypt.compare(password,user.password, (err, validated)=>{
                 if(validated){
-
                     const token = jwt.sign({username:email},process.env.SECRET_KEY,{expiresIn:60*30})
+                   
                     return res.status(200).json({user, token})
+                    
                 }
                 else
                 {
-                    return res.status(401).json({msg:"Either Username or password is wrong"})
+                    return res.status(401).json("Either Username or password is wrong")
                 }
             })
             
         }
         else{
-            res.status(401).json({msg:"This email is not registered"})
+            res.status(401).json("This email is not registered")
         }
 
     }
@@ -139,11 +140,28 @@ const getUser = async (req, res, next) =>{
 
 }
 
+const getAllUsers =async(req, res, next) => {
+    try{
+        const all_Users = await users.findAll();
+        if(all_Users){
+          return  res.status(200).json(all_Users);
+        }
+       else{
+            return  res.status(200).json('Users does not exists');  
+        }
+    }
+    catch(err){
+        res.status(500).json(err);
+    }
+}
+
+
 module.exports = {
     addUser,
     updateUser,
     deleteUser,
     getUser,
-    verifyUser
+    verifyUser,
+    getAllUsers
 }
 

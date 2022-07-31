@@ -13,12 +13,9 @@ const NgoServiceArea = sequelize.define('NgoServiceArea', {
         key: 'id'
       }
     },
-    serviceAreaId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: serviceArea, // 'Actors' would also work
-        key: 'id'
-      }
+    serviceArea: {
+      type: DataTypes.STRING,
+      allowNull:false
     }
   },{
     freezeTableName:true,

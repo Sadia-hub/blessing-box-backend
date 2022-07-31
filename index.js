@@ -1,4 +1,5 @@
 const express =  require("express")
+const cors = require('cors');
 require("dotenv").config()
 
 //routers
@@ -7,7 +8,7 @@ const ServiceAreaRouter = require("./routes/serviceArea")
 const UserRouter = require("./routes/user")
 const ngoRouter = require("./routes/ngo")
 const projectRouter = require("./routes/project") 
-
+const ngoDetailsRouter = require("./routes/ngoDetails")
 //const connectDB = require("./db")
 const sequelize = require("./db")
 
@@ -22,7 +23,7 @@ const service = require("./models/services")
 const ngoService = require("./models/ngoService")
 const serviceArea = require("./models/serviceAreas")
 const ngoServiceArea = require("./models/ngoServiceArea")
-
+const ngoDetails = require("./models/ngoDetails")
 
 //relations of our model
     
@@ -33,6 +34,9 @@ user.hasOne(ngo)
 ngo.belongsTo(user)
 
 //ngo
+
+ngo.hasOne(ngoDetails);
+ngoDetails.belongsTo(ngo);
 
 ngo.belongsToMany(service, {through: ngoService})
 service.belongsToMany(ngo, {through: ngoService})
@@ -52,7 +56,7 @@ project.belongsToMany(user, {through: "donations"})
 user.belongsToMany(project, {through: "donations"})
 
 const app = express();
-
+app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(ServiceRouter)
@@ -60,6 +64,7 @@ app.use(ServiceAreaRouter);
 app.use(UserRouter)
 app.use(ngoRouter)
 app.use(projectRouter)
+app.use(ngoDetailsRouter)
 
 app.all("*",(req, res)=>{
     res.status(404).json({

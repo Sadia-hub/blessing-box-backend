@@ -3,8 +3,7 @@ const userController = require("../controllers/userController")
 const router = express.Router()
 const middleware = require("../middleware/");
 router.route("/users")
-.post(userController.addUser)
-
+.post(userController.addUser).get(userController.getAllUsers)
 router.route("/verify/:id")
 .get(userController.verifyUser);
 
