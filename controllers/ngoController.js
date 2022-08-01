@@ -49,6 +49,7 @@ const getNgo = async (req, res) =>{
     }
 }
 
+
 const approveNGO = async (req, res, next) =>{
     try{
         const {id, status} = req.params
@@ -96,7 +97,7 @@ const getNgos = async (req, res) =>{
        
         console.log("all")
        
-        if(status==undefined){
+        if(!status){
             status = "approved"
         }
         // console.log("Status is"+ status)
@@ -121,6 +122,20 @@ const getNgos = async (req, res) =>{
     
 }
 
+//get All pending NGOs
+const getPendingNGOs  =async(req, res) =>{
+    try{
+        const pending_ngo = await ngos.findAll({ where: {status: 'pending'} })
+        if(pending_ngo){
+            return res.status(200).json(pending_ngo)
+        }
+        res.status(400).json({msg:"No NGOs with pending Status"})
+    }
+    catch(err){
+        res.status(500).json({msg:err.message})
+    }
+}
+
 //get NGOs by servicetype
 const getNGOByService = async (req, res) =>{
     try{
@@ -139,8 +154,42 @@ catch(err){
 }
 
 
-const updateNgo = (req, res) =>{
-    res.json({msg:"update ngo"})
+//get Ngo By ID (All NGOs)
+
+const getNgoByID = async(req, res) => {
+    try{
+        const {id} = req.params;
+        const ngo = await ngos.findByPk(id)
+        if(ngo){
+            return res.status(200).json(ngo);
+        }
+        res.status(400).json({msg:"NGOs not found"})
+
+    }
+    catch(err){
+        res.status(500).json({msg:err.message})
+    }
+}
+
+const updateNgo = async(req, res) =>{
+    const {id} = req.params;
+    const ngo = await ngos.findByPk(id)
+   try{
+    if(ngo){
+        const ngo = await ngos.update( req.body  , {
+            where: {
+                id
+              }
+            });
+            res.status(200).json({msg: "update user"})
+    }
+    if(!ngo) {
+        res.status(400).json({msg: "ngo Id is not registered"})
+    }
+}
+catch(err){
+    res.status(500).json({msg: err})
+}
 }
 
 const deleteNgo = (req, res) =>{
@@ -154,5 +203,7 @@ module.exports = {
     updateNgo,
     deleteNgo,
     approveNGO,
-    getNGOByService
+    getNGOByService,
+    getPendingNGOs,
+    getNgoByID
 }

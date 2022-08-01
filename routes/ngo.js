@@ -12,8 +12,9 @@ router.route("/ngo")
 // router.route("/ngo/:status").get(ngoController.getNgos) //approved ngos
 
 router.route("/ngo/:id")
-.get(ngoController.getNgo)
-.put(middleware.hasToken, ngoController.updateNgo)
+//.get(ngoController.getNgo)
+.get(ngoController.getNgoByID)
+.put(ngoController.updateNgo)
 .delete(middleware.hasToken, ngoController.deleteNgo)
 
 router.route("/ngoservice/:service").get(ngoController.getNGOByService)
@@ -21,6 +22,7 @@ router.route("/ngoservice/:service").get(ngoController.getNGOByService)
 router.route("/ngo/:id/status/:status")
 .get(ngoController.approveNGO)
 
+router.route("/pendingngos").get(ngoController.getPendingNGOs);
 // router.route("/ngos")
 // .get(ngoController)
 
