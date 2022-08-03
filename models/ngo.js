@@ -20,10 +20,7 @@ const NGO = sequelize.define("ngos",{
         type:DataTypes.STRING,
         allowNull:false
     },
-    userEmail:{
-        type:DataTypes.STRING,
-        allowNull:false  
-    },
+    
     logo:{
         type:DataTypes.STRING,
         allowNull:false
@@ -52,6 +49,10 @@ const NGO = sequelize.define("ngos",{
     founderCNIC:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    founderEmail:{
+        type:DataTypes.STRING,
+        allowNull:false  
     },
     founderContact:{
         type:DataTypes.STRING,

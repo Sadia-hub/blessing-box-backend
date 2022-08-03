@@ -11,10 +11,10 @@ const addUser =  (req, res, next) =>{
             // returns hash
             if(!err){
                 
-                const {email, name, contact, designation, address} = body
+                const {email, name, contact, designation, type, address} = body
 
                 try{
-                    user = await users.create({email, name, contact, designation, address, password:hash})
+                    user = await users.create({email, name, contact, designation,type, address, password:hash})
 
                     if(user){
                      
