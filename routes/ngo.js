@@ -20,7 +20,7 @@ router.route("/ngo/:id")
 router.route("/ngoservice/:service").get(ngoController.getNGOByService)
 
 router.route("/ngo/:id/status/:status")
-.get(ngoController.approveNGO)
+.get(middleware.hasToken,ngoController.approveNGO)
 
 router.route("/ngos/:id")
 .get(ngoController.checkUserHasNgo)

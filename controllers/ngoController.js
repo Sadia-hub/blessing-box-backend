@@ -71,7 +71,7 @@ const approveNGO = async (req, res, next) =>{
                 return res.status(200).json({msg:"Sorry, requested NGO cannot be approved", ngo})
             }
             if(status == 1){
-                await users.update({ type: "Ngo"}, {  
+                await users.update({ type: "ngo"}, {  
                     where: {
                    Id : userID
                 }
