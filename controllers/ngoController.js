@@ -1,5 +1,7 @@
 const ngos = require("../models/ngo")
 const users = require("../models/users")
+const ngoDetails = require("../models/ngoDetails")
+
 const addNgo = async (req, res) =>{
    
     try{
@@ -160,14 +162,15 @@ const getNgoByID = async(req, res) => {
     try{
         const {id} = req.params;
         const ngo = await ngos.findByPk(id)
+        const ngoDetail = await ngoDetails.findOne({where:{ngoId:id}})
         if(ngo){
-            return res.status(200).json(ngo);
+            return res.status(200).json({ngo, ngoDetail, success:true});
         }
-        res.status(400).json({msg:"NGOs not found"})
+        res.status(400).json({success:false, msg:`Ngo with id ${id} does not exist`})
 
     }
     catch(err){
-        res.status(500).json({msg:err.message})
+        res.status(500).json({success:false, msg:err.message})
     }
 }
 
