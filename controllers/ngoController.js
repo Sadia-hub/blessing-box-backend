@@ -171,6 +171,7 @@ const getNgoByID = async(req, res) => {
     }
 }
 
+//update Ngo
 const updateNgo = async(req, res) =>{
     const {id} = req.params;
     const ngo = await ngos.findByPk(id)
@@ -196,6 +197,29 @@ const deleteNgo = (req, res) =>{
     res.json({msg:"delete ngo"})
 }
 
+//user id is in NGO
+
+const checkUserHasNgo = async(req, res) =>{
+    const {id} = req.params;
+    console.log("user id is",id)
+    const ngo = await ngos.findAll({ where: {userId: id}}) ;
+    try{
+      
+        if(ngo[0].dataValues.userId==id){
+            return res.status(200).json(true)  
+        }
+        else if(ngo[0].dataValues.userId!=id)
+            { 
+                return res.status(400).json(false)
+            
+            }
+    }
+    catch(err){
+        res.status(500).json(false)
+    }
+
+}
+
 module.exports = {
     addNgo,
     getNgo,
@@ -205,5 +229,6 @@ module.exports = {
     approveNGO,
     getNGOByService,
     getPendingNGOs,
-    getNgoByID
+    getNgoByID,
+    checkUserHasNgo
 }

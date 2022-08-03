@@ -22,6 +22,9 @@ router.route("/ngoservice/:service").get(ngoController.getNGOByService)
 router.route("/ngo/:id/status/:status")
 .get(ngoController.approveNGO)
 
+router.route("/ngos/:id")
+.get(ngoController.checkUserHasNgo)
+
 router.route("/pendingngos").get( ngoController.getPendingNGOs);
 // router.route("/ngos")
 // .get(ngoController)
