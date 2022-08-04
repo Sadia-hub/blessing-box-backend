@@ -1,6 +1,7 @@
 const ngos = require("../models/ngo")
 const users = require("../models/users")
 const ngoDetails = require("../models/ngoDetails")
+const project  = require("../models/project")
 
 const addNgo = async (req, res) =>{
    
@@ -161,10 +162,11 @@ catch(err){
 const getNgoByID = async(req, res) => {
     try{
         const {id} = req.params;
-        const ngo = await ngos.findByPk(id)
+        const ngo = await ngos.findOne({id: id,status:"approved"})
         const ngoDetail = await ngoDetails.findOne({where:{ngoId:id}})
+        const projects = await project.findAll({where:{ngoId:id}})
         if(ngo){
-            return res.status(200).json({ngo, ngoDetail, success:true});
+            return res.status(200).json({ngo, ngoDetail, projects, success:true});
         }
         res.status(400).json({success:false, msg:`Ngo with id ${id} does not exist`})
 
