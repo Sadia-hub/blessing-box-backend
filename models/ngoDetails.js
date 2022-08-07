@@ -8,12 +8,12 @@ const NgoDetails = sequelize.define("NgoDetails",{
         autoIncrement:true
     },
     about_us:{
-        type:DataTypes.STRING,
+        type:DataTypes.TEXT,
         allowNull:false,
         
     },
     services:{
-        type:DataTypes.STRING,
+        type:DataTypes.TEXT,
         allowNull:false
     },
     image:{
@@ -21,7 +21,7 @@ const NgoDetails = sequelize.define("NgoDetails",{
         allowNull:false
     },
     projects:{
-        type:DataTypes.STRING,
+        type:DataTypes.TEXT,
         allowNull:true
     }},{
     freezeTableName: true,

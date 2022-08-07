@@ -1,11 +1,11 @@
-const Information = require('../models/ngoDetails');
+const ngoDetails = require('../models/ngoDetails');
 const ngo = require('../models/ngo');
 
 const addDetails = async(req, res) => {
     try{
         const {ngoId} = req.body;
 
-        const check = Information.findAll({
+        const check = ngoDetails.findAll({
             where:{
                 ngoId
             }
@@ -13,12 +13,12 @@ const addDetails = async(req, res) => {
         if(!check){
             return res.status(401).json({msg:"Sorry, you have already registered data"})
         }
-        const details = await Information.create(req.body);
+        const details = await ngoDetails.create(req.body);
        
         res.status(200).json(details);
     }
     catch(err){
-        res.status(500).json({msg:err.message})
+        res.status(500).json({msg:err})
     }
 
     
