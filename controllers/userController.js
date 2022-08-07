@@ -14,21 +14,18 @@ const addUser =  (req, res, next) =>{
                 const {email, name, contact, designation, address, type} = body
                 
                 try{
-                    user = await users.create({email, name, contact, designation, address, type,password:hash})
-
+                 const  user = await users.create({email, name, contact, designation, address, type,password:hash})
                     if(user){
                      
                             const info = await sendMail(email, user.id)
                             console.log(info)  
-                            res.status(200).json({user, msg:"Thank you for registration! Kindly check your email for confirmation of your account"})
-                           
+                            res.status(200).json({user, msg:"Thank you for registration! Kindly check your email for confirmation of your account"})                
                     }
                      
                 }
                 catch(err){
                     res.status(500).json({msg:err})
-                }
-                
+                }       
             }
             else{
                 res.status(500).json({msg:err})  
@@ -36,32 +33,52 @@ const addUser =  (req, res, next) =>{
             });
 }
 
+//update user
 const updateUser = async(req, res, next) =>{
     const {id} = req.params;
     console.log(id);    
     const {password, name, contact, designation,  address} = req.body
     const user = await users.findByPk(id);
-    console.log("Id of user is "+user);
-  bcrypt.hash(password, 5, async function(err, hash) {
-        try{
-            if(user) {
-        const user = await users.update( { name, contact, designation, password : hash, address}  , {
-            where: {
-                id
-              }
-            });
-            res.status(200).json({msg: "update user"})   
+  
+            bcrypt.hash(password, 5, async function(err, hash) {
+                try{
+                    if(user) {
+                await users.update( { name, contact, designation, password : hash, address}  , {
+                    where: {
+                        id
+                      }
+                    });
+                    res.status(200).json({msg: "update user"})   
+                }
+                if(!user) {
+                    res.status(400).json({msg: "user Id is not registered"})
+                }
+                } 
+            catch(err){
+                res.status(500).json({msg: err})
+            }
+        })
         }
-        if(!user) {
-            res.status(400).json({msg: "user Id is not registered"})
+
+//change Password
+const changePassword = async(req, res) =>{
+    const {password} = req.body;
+    const {id} = req.params;
+    console.log(id);   
+    const user = await users.findByPk(id);
+    bcrypt.compare(password,user.password, (err, validated)=>{
+        if(validated){
+            return res.status(200).json("Old Password is same")  
         }
-        } 
-    catch(err){
-        res.status(500).json({msg: err})
-    }
-})
+        else
+        {
+            return res.status(401).json("Old password is wrong")
+        }
+    })
+
 }
 
+//delete user
 const deleteUser = async (req, res, next) =>{
     const {id} = req.params;
     console.log("Id is" + id);
@@ -140,6 +157,7 @@ const getUser = async (req, res, next) =>{
 
 }
 
+
 const getAllUsers =async(req, res, next) => {
     try{
         const all_Users = await users.findAll();
@@ -156,12 +174,26 @@ const getAllUsers =async(req, res, next) => {
 }
 
 
+//get User By ID 
+const getUserByID = async(req, res) => {
+    const {id} = req.params
+    try{
+        const user = await users.findByPk(id);
+        return res.status(200).json(user);
+    }
+    catch(e){
+        return res.status(500).json({msg:err});  
+    }
+}
+
 module.exports = {
     addUser,
     updateUser,
     deleteUser,
     getUser,
     verifyUser,
-    getAllUsers
+    getAllUsers,
+    getUserByID,
+    changePassword
 }
 
