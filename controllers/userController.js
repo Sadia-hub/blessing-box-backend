@@ -63,16 +63,29 @@ const updateUser = async(req, res, next) =>{
 //change Password
 const changePassword = async(req, res) =>{
     const {password} = req.body;
+   
     const {id} = req.params;
     console.log(id);   
     const user = await users.findByPk(id);
-    bcrypt.compare(password,user.password, (err, validated)=>{
+    bcrypt.compare(password[0], user.password, (err, validated)=>{
         if(validated){
-            return res.status(200).json("Old Password is same")  
-        }
+            bcrypt.hash(password[1], 5, async function(err, hash) {
+                    if(user) {
+                await users.update( {  password : hash}  , {
+                    where: {
+                        id
+                      }
+                    });
+                    res.status(200).json( "updated password")   
+                }
+                if(!user) {
+                    res.status(400).json( "user Id is not registered")
+                }           
+        })
+    }
         else
         {
-            return res.status(401).json("Old password is wrong")
+            return res.status(401).json("Password Mismatch")
         }
     })
 
