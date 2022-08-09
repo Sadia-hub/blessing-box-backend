@@ -1,7 +1,9 @@
 const ngoDetails = require('../models/ngoDetails');
 const ngo = require('../models/ngo');
 
+
 const addDetails = async(req, res) => {
+
     try{
         const {ngoId} = req.body;
 
@@ -23,6 +25,8 @@ const addDetails = async(req, res) => {
 
     
 }
+
+
 const getAllData = async(req, res) => {
     const {id} = req.params;
     try{

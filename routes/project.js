@@ -5,8 +5,10 @@ const middleware = require("../middlewares/index")
 const router = express.Router();
 
 router.route("/ngos/:ngoId/project")
-.post(middleware.hasToken, projectController.addProject)
 .get(projectController.getProjectsByNgoId);
+
+router.route("/ngo/addproject")
+.post(middleware.hasToken, projectController.addProject)
 
 router.route("/project/:id")
 .get(projectController.getProjectById)
