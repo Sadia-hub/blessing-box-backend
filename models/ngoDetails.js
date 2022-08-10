@@ -23,7 +23,13 @@ const NgoDetails = sequelize.define("NgoDetails",{
     projects:{
         type:DataTypes.TEXT,
         allowNull:true
-    }},{
+    },
+    account_id:{
+        type:DataTypes.TEXT,
+        allowNull:true
+    
+    }
+},{
     freezeTableName: true,
     timestamps: false
 });
