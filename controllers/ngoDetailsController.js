@@ -19,6 +19,7 @@ const addDetails = async(req, res) => {
             return res.status(401).json({msg:"Sorry, you have already registered data"})
         }
         const {body} = req.body
+        console.log(body)
         const details = await ngoDetails.create(body);
        
         res.status(200).json(details);

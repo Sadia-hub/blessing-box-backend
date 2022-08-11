@@ -24,6 +24,6 @@ router.route("/ngo/:id/status/:status")
 
 router.route("/pendingngos").get(middleware.hasToken, ngoController.getPendingNGOs);
 // router.route("/ngos")
-// .get(ngoController)
+// .get(ngoController.getNgos)
 
 module.exports = router
