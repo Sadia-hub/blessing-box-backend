@@ -1,38 +1,31 @@
 const {Sequlize, DataTypes} = require("sequelize")
 const sequelize = require("../db")
-const NgoDetails = sequelize.define("NgoDetails",{
+const Contact = sequelize.define("contact",{
     id:{
         type:DataTypes.INTEGER,
         allowNull:false,
         primaryKey:true,
         autoIncrement:true
     },
-    about_us:{
-        type:DataTypes.TEXT,
+    email:{
+        type:DataTypes.STRING,
         allowNull:false,
         
     },
-    services:{
+    message:{
         type:DataTypes.TEXT,
         allowNull:false
     },
-    image:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
-    projects:{
-        type:DataTypes.TEXT,
+    responded:{
+        type:DataTypes.BOOLEAN,
+        allowNull:true,
+        defaultValue:false
 
-        allowNull:true
-    },
-    account_id:{
-        type:DataTypes.STRING,
-        allowNull:true
-    },
-
+    }
+   
 },{
     freezeTableName: true,
     timestamps: false
 });
 
-module.exports = NgoDetails;
+module.exports = Contact;

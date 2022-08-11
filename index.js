@@ -8,6 +8,7 @@ const ServiceAreaRouter = require("./routes/serviceArea")
 const UserRouter = require("./routes/user")
 const ngoRouter = require("./routes/ngo")
 const projectRouter = require("./routes/project") 
+const contactRouter = require("./routes/contact");
 const ngoDetailsRouter = require("./routes/ngoDetails")
 const donationRouter = require("./routes/donation")
 
@@ -27,6 +28,7 @@ const serviceArea = require("./models/serviceAreas")
 const ngoServiceArea = require("./models/ngoServiceArea")
 const ngoDetails = require("./models/ngoDetails")
 
+const contact =require("./models/contact")
 
 //relations of our model
     
@@ -59,6 +61,11 @@ proof.belongsTo(project)
 project.belongsToMany(user, {through: "donations"})
 user.belongsToMany(project, {through: "donations"})
 
+
+//contact
+
+//contact.belongsTo(contact)
+
 const app = express();
 app.use(cors());
 app.use(express.json())
@@ -72,8 +79,9 @@ app.use(ngoRouter)
 app.use(projectRouter)
 app.use(ngoDetailsRouter)
 app.use(donationRouter)
+app.use(contactRouter)
 
-    
+
 
 app.all("*",(req, res)=>{
     res.status(404).json({

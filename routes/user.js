@@ -8,9 +8,10 @@ router.route("/verify/:id")
 .get(userController.verifyUser);
 
 
-router.route("/user/:id").patch( middleware.hastoken, userController.updateUser)
+router.route("/user/:id").patch(  userController.updateUser).get(userController.getUserByID)
 .delete(middleware.hastoken, userController.deleteUser);
 router.route("/user").post(userController.getUser) //get user by id
 
+router.route("/changepassword/:id").post(userController.changePassword)
 
 module.exports = router;
