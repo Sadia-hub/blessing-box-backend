@@ -39,6 +39,27 @@ const donate = async (req, res) =>{
 
 }
 
+const donateForMobile = async (req, res) =>{
+ 
+    try{
+        const {donation, projectId} = req.body;
+        console.log('donation is ',donation)
+        const SECRETKEY ='sk_test_51LWfS4FvT289HIDPxtvmuwFe29HzTIMMaKSfrGIRmhsoomo0Q1VVnVGBhAJouOVyZOcj8rhtYhDkLmL99Jumil0m003lh94w6O';
+        const stripe = require('stripe')(SECRETKEY);
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: donation*100,
+            currency: 'pkr',
+
+        })
+        const clientSecret = await paymentIntent.client_secret;
+        res.json({clientSecret: clientSecret});
+    }
+    catch(err){
+        res.json({error: err.message})
+    }
+} 
+
+
 const addDonationToDb = async (req, res) =>{
     try{
         const donation = await donations.create(req.body);
@@ -50,4 +71,4 @@ const addDonationToDb = async (req, res) =>{
 }
 
 
-module.exports = {donate, addDonationToDb}
+module.exports = {donate, addDonationToDb, donateForMobile}

@@ -6,17 +6,16 @@ const NgoDetails = require('../models/ngoDetails');
 const addDetails = async(req, res) => {
 
     try{
-        const {ngoId} = req.body;
-
-        
+        const {ngoId} = req.body; 
 
         const check = ngoDetails.findAll({
             where:{
                 ngoId
             }
         })
-        if(!check){
-            return res.status(401).json({msg:"Sorry, you have already registered data"})
+        console.log(check)
+        if(check[0].dataValues.id==ngoId){
+           return res.status(401).json({msg:"Sorry, you have already registered data"})
         }
         const {body} = req.body
         console.log(body)

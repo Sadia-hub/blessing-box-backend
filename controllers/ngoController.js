@@ -58,12 +58,12 @@ const approveNGO = async (req, res, next) =>{
         const {id, status} = req.params
         const ngo = await ngos.findByPk(id)
         const userID = ngo.dataValues.userId;
-        console.log("In approve"+ngo.dataValues.userId)
+        // console.log("In approve"+ngo.dataValues.userId)
         if(ngo){
 
             const ngoStatus = (status == 1) ? "approved" :"disproved"
-            console.log(ngoStatus)
-            console.log(status)
+            // console.log(ngoStatus)
+            // console.log(status)
             const ngo = await ngos.update({  status :ngoStatus }, {
                 where: {
                   id
@@ -176,6 +176,22 @@ const getNgoByID = async(req, res) => {
     }
 }
 
+//get NGO BY ID by megha
+const getNgoBYItsID =async(req, res) =>{
+    try{
+    const {id} = req.params;
+    const ngo = await ngos.findAll({ where: {id: id} })  
+    if(ngo){
+        return res.status(200).json(ngo);
+    }
+    res.status(400).json({ msg:`Ngo with id ${id} does not exist`})
+    }
+    catch(err){
+        res.status(500).json({ msg:err.message}) 
+    }
+
+}
+
 //update Ngo
 const updateNgo = async(req, res) =>{
     const {id} = req.params;
@@ -235,5 +251,6 @@ module.exports = {
     getNGOByService,
     getPendingNGOs,
     getNgoByID,
-    checkUserHasNgo
+    checkUserHasNgo,
+    getNgoBYItsID
 }
