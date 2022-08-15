@@ -6,7 +6,7 @@ const Donation= sequelize.define("donations",{
 
     id:{
         type:DataTypes.INTEGER, 
-        autoIncremement:true,
+        autoIncrement:true,
         primaryKey:true,
         allowNull:false
     },

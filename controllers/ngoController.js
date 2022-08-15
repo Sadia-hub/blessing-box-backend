@@ -159,13 +159,33 @@ catch(err){
 
 //get Ngo By ID (All NGOs)
 
+const getNgoByUserId = async(req, res) => {
+    try{
+        const {userId} = req.params;
+        const ngo = await ngos.findOne({where:{userId,status:"approved"}})
+        
+        if(ngo){
+            const ngoDetail = await ngoDetails.findOne({where:{ngoId:ngo.id}})
+            const projects = await project.findAll({where:{ngoId:ngo.id}})
+            return res.status(200).json({ngo, ngoDetail, projects, success:true});
+        }
+        res.status(400).json({success:false, msg:`Ngo with id ${id} does not exist`})
+
+    }
+    catch(err){
+        res.status(500).json({success:false, msg:err.message})
+    }
+}
+
 const getNgoByID = async(req, res) => {
     try{
         const {id} = req.params;
-        const ngo = await ngos.findOne({id: id,status:"approved"})
-        const ngoDetail = await ngoDetails.findOne({where:{ngoId:id}})
-        const projects = await project.findAll({where:{ngoId:id}})
+        const ngo = await ngos.findOne({where:{id,status:"approved"}})
+       
         if(ngo){
+            const ngoDetail = await ngoDetails.findOne({where:{ngoId:id}})
+            const projects = await project.findAll({where:{ngoId:id}})
+            
             return res.status(200).json({ngo, ngoDetail, projects, success:true});
         }
         res.status(400).json({success:false, msg:`Ngo with id ${id} does not exist`})
@@ -235,5 +255,6 @@ module.exports = {
     getNGOByService,
     getPendingNGOs,
     getNgoByID,
+    getNgoByUserId,
     checkUserHasNgo
 }

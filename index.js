@@ -11,6 +11,7 @@ const projectRouter = require("./routes/project")
 const contactRouter = require("./routes/contact");
 const ngoDetailsRouter = require("./routes/ngoDetails")
 const donationRouter = require("./routes/donation")
+const proofRouter = require("./routes/proof")
 
 //const connectDB = require("./db")
 const sequelize = require("./db")
@@ -80,7 +81,7 @@ app.use(projectRouter)
 app.use(ngoDetailsRouter)
 app.use(donationRouter)
 app.use(contactRouter)
-
+app.use(proofRouter)
 
 
 app.all("*",(req, res)=>{

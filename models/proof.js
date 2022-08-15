@@ -2,17 +2,16 @@ const {DataTypes} = require("sequelize")
 
 const sequelize = require("../db")
 
-const Proof = sequelize.define("proofs",{
+const proof = sequelize.define("proofs",{
 
     id:{
         type:DataTypes.INTEGER, 
-        autoIncremement:true,
+        autoIncrement:true,
         primaryKey:true,
         allowNull:false
     },
     document:{
-        type:DataTypes.STRING,
-        allowNull:false,
+        type:DataTypes.STRING
     }
 
 },{
@@ -20,4 +19,4 @@ const Proof = sequelize.define("proofs",{
     timestamps: false
 })
 
-module.exports = Proof
+module.exports = proof
