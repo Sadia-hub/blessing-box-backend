@@ -21,6 +21,8 @@ router.route("/ngodetails/:id").get(ngoController.getNgoBYItsID) //by Megha
 
 router.route("/ngoservice/:service").get(ngoController.getNGOByService)
 
+router.route("/ngo/user/:userId").get(ngoController.getNgoByUserId)
+
 router.route("/ngo/:id/status/:status")
 .get(ngoController.approveNGO)
 

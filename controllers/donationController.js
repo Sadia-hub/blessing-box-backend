@@ -1,13 +1,15 @@
 const donations = require('../models/donation');
 
+var amount=0   ;
 const donate = async (req, res) =>{
-
-    try{
+     try{
 
         const stripe = require('stripe')('sk_test_51LR9okBXECNl13UDqN0tyC4dSsnHxCzKd6EC0gHHzvwzCOkzZV9xUGR107gfjSNyZszQPAP0Z5UQsEoDN3pQkHpv004yQURZ1z');
 
         const {account_id, donation, projectId} = req.body;
-
+        var donated_amount = parseInt(donation);
+        amount+=donated_amount;
+       
         const session = await stripe.checkout.sessions.create({
         line_items: [
             {
@@ -30,7 +32,7 @@ const donate = async (req, res) =>{
         }, {
         stripeAccount: account_id,
         })
-        
+       
         res.json({ url: session.url })
     }
     catch(err){
@@ -40,7 +42,6 @@ const donate = async (req, res) =>{
 }
 
 const donateForMobile = async (req, res) =>{
- 
     try{
         const {donation, projectId} = req.body;
         console.log('donation is ',donation)
@@ -70,5 +71,23 @@ const addDonationToDb = async (req, res) =>{
     }
 }
 
+//server sent events
+const serverSentEvents = async(req, res) => { 
+     
+ var value = ((amount*100)/3000);  
+ console.log("Value is ",  value)    
+    res.set('Content-Type', "text/event-stream")
+    res.set("Connection", "keep-alive")
+    res.set("Cache-Control", "no-cache")
+    res.set("Access-Control-Allow-Origin", "*")
+    console.log('client connected to server')
+   
+    setInterval(function(){  
+        res.status(200).write(`data: ${JSON.stringify(value)}\n\n`)
+    }, 1000);
 
-module.exports = {donate, addDonationToDb, donateForMobile}
+} ;
+
+
+
+module.exports = {donate, addDonationToDb, donateForMobile, serverSentEvents}

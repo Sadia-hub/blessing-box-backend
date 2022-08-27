@@ -11,7 +11,7 @@ const projectRouter = require("./routes/project")
 const contactRouter = require("./routes/contact");
 const ngoDetailsRouter = require("./routes/ngoDetails")
 const donationRouter = require("./routes/donation")
-
+const proofRouter = require("./routes/proof")
 //const connectDB = require("./db")
 const sequelize = require("./db")
 
@@ -80,7 +80,7 @@ app.use(projectRouter)
 app.use(ngoDetailsRouter)
 app.use(donationRouter)
 app.use(contactRouter)
-
+app.use(proofRouter)
 
 app.all("*",(req, res)=>{
     res.status(404).json({
@@ -89,7 +89,7 @@ app.all("*",(req, res)=>{
 });
 
 
-sequelize.sync().then(()=>{
+sequelize.sync( ).then(()=>{
     service.bulkCreate([{service:"education"}, {service:"food"}, {service:"orphanage"}])
 }).then(()=>{
     serviceArea.bulkCreate([{area:"Karachi"}, {area:"Sukkur"}, {area:"Ghotki"}])

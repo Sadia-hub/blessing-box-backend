@@ -8,7 +8,7 @@ const Donation= sequelize.define("donations",{
         type:DataTypes.INTEGER, 
         autoIncremement:true,
         primaryKey:true,
-        allowNull:false
+        allowNull:true
     },
     donation:{
         type:DataTypes.INTEGER,
