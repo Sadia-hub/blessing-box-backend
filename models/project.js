@@ -26,6 +26,11 @@ const Project = sequelize.define("projects",{
         type:DataTypes.TEXT,
         allowNull:false
     },
+    amountRecieved:{
+        type:DataTypes.STRING,
+        allowNull:true,
+        defaultValue:0
+    },
     status:{
         type:DataTypes.BOOLEAN,
         defaultValue:0
