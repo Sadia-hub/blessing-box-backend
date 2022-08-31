@@ -27,7 +27,7 @@ const ngoService = require("./models/ngoService")
 const serviceArea = require("./models/serviceAreas")
 const ngoServiceArea = require("./models/ngoServiceArea")
 const ngoDetails = require("./models/ngoDetails")
-
+const donations = require("./models/donation")
 const contact =require("./models/contact")
 
 //relations of our model
@@ -58,9 +58,15 @@ proof.belongsTo(project)
 
 
 //donation
-project.belongsToMany(user, {through: "donations"})
-user.belongsToMany(project, {through: "donations"})
+// project.belongsToMany(user, {through: "donations"})
+// user.belongsToMany(project, {through: "donations"})
 
+//
+project.hasMany(donations)
+donations.belongsTo(project)
+
+user.hasMany(donations)
+donations.belongsTo(user)
 
 //contact
 
@@ -89,7 +95,7 @@ app.all("*",(req, res)=>{
 });
 
 
-sequelize.sync( ).then(()=>{
+sequelize.sync({force:true}  ).then(()=>{
     service.bulkCreate([{service:"education"}, {service:"food"}, {service:"orphanage"}])
 }).then(()=>{
     serviceArea.bulkCreate([{area:"Karachi"}, {area:"Sukkur"}, {area:"Ghotki"}])

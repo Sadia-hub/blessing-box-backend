@@ -64,7 +64,7 @@ const donate = async (req, res) =>{
             },
         ],
         mode: 'payment',
-        success_url: `http://localhost:3000/blessings/${donation}`,
+        success_url: `http://localhost:3000/blessings/${donation} `,
         cancel_url: 'http://localhost:3000/login',
         payment_intent_data: {
             application_fee_amount: 123,
