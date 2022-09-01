@@ -10,6 +10,8 @@ router.route("/ngos/:ngoId/project")
 router.route("/ngo/addproject")
 .post(middleware.hasToken, projectController.addProject)
 
+
+router.route('/sse/:ngoId').get(projectController.serverSentEvents) 
 router.route("/project/:id")
 .get(projectController.getProjectById)
 

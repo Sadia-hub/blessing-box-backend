@@ -146,22 +146,6 @@ const donationOfProject = async(req, res) =>{
 }
 
 //server sent events
-const serverSentEvents = async(req, res) => { 
-   
- var value = ((amount*100)/3000);  
- console.log("Value is ",  value)    
-    res.set('Content-Type', "text/event-stream")
-    res.set("Connection", "keep-alive")
-    res.set("Cache-Control", "no-cache")
-    res.set("Access-Control-Allow-Origin", "*")
-    console.log('client connected to server')
-   
-    setInterval(function(){  
-        res.status(200).write(`data: ${JSON.stringify(value)}\n\n`)
-    }, 1000);
-
-} ;
-
-
+ 
 
 module.exports = {donate, addDonationToDb, donateForMobile, serverSentEvents, donationOfProject}

@@ -95,7 +95,7 @@ app.all("*",(req, res)=>{
 });
 
 
-sequelize.sync({force:true}  ).then(()=>{
+sequelize.sync(   ).then(()=>{
     service.bulkCreate([{service:"education"}, {service:"food"}, {service:"orphanage"}])
 }).then(()=>{
     serviceArea.bulkCreate([{area:"Karachi"}, {area:"Sukkur"}, {area:"Ghotki"}])
