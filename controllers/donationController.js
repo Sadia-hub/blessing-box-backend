@@ -64,7 +64,7 @@ const donate = async (req, res) =>{
             },
         ],
         mode: 'payment',
-        success_url: `http://localhost:3000/blessings/${donation} `,
+        success_url: `http://localhost:3000/blessing/donation/${donation}/project/${projectId}`,
         cancel_url: 'http://localhost:3000/login',
         payment_intent_data: {
             application_fee_amount: 123,
@@ -148,4 +148,4 @@ const donationOfProject = async(req, res) =>{
 //server sent events
  
 
-module.exports = {donate, addDonationToDb, donateForMobile, serverSentEvents, donationOfProject}
+module.exports = {donate, addDonationToDb, donateForMobile,   donationOfProject}
